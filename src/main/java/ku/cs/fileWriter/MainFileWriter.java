@@ -2,17 +2,26 @@ package ku.cs.fileWriter;
 
 import ku.cs.fileWriter.model.Cat;
 import ku.cs.fileWriter.model.CatList;
-import ku.cs.fileWriter.service.CatListDataSource;
+import ku.cs.fileWriter.service.CatListFileDataSource;
 import ku.cs.fileWriter.service.Datasource;
 
 public class MainFileWriter {
     public static void main(String[] args) {
-        Datasource<CatList> catListDatasource = new CatListDataSource();
+        Datasource<CatList> datasource = new CatListFileDataSource();
 
-        CatList catList = new CatList();
-        catList.addCat(new Cat("A", "B"));
-        catList.addCat(new Cat("C", "D"));
+        System.out.println("Reading data from file in first time:");
+        CatList catList = datasource.readData();
+        for (Cat cat : catList.getCatList()) {
+            System.out.println(cat);
+        }
 
-        catListDatasource.writeData(catList);
+        catList.addCat("Mimi", "Siamese", 2);
+        datasource.writeData(catList);
+
+        System.out.println("\nReading data from file after added:");
+        catList = datasource.readData();
+        for (Cat cat : catList.getCatList()) {
+            System.out.println(cat);
+        }
     }
 }

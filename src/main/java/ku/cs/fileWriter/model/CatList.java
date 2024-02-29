@@ -17,6 +17,10 @@ public class CatList {
         catList.add(cat);
     }
 
+    public void addCat(String name, String breed, int age) {
+        catList.add(new Cat(name, breed, age));
+    }
+
     public List<Cat> getCatList() {
         return catList;
     }
